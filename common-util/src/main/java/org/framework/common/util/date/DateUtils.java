@@ -10,6 +10,8 @@ import java.util.Date;
  * @Date Created in 2018/9/3 18:09
  */
 public final class DateUtils {
+    
+    public static final String FORMAT_PATTERN = "yyyyMMdd";
 
     private static final String MINUTE = "minute";
 
@@ -22,6 +24,50 @@ public final class DateUtils {
     private static final String MONTH = "month";
 
     private static final String YEAR = "year";
+    
+    public static String formatByDefault(Date date) {
+        return formatByPattern(date, DateUtils.FORMAT_PATTERN);
+    }
+
+    public static String formatByPattern(Date date, String pattern) {
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(pattern);
+
+        return dateTimeFormatter.print(toDateTime(date));
+    }
+    
+    /**
+     * 返回时间= 时间-(计算单位)数量
+     *
+     * @param date     时间
+     * @param num      数量
+     * @param timeUnit 计算单位
+     * @return
+     */
+    public static Date sub(Date date, Integer num, TimeUnit timeUnit) {
+
+
+        if (timeUnit.equals(TimeUnit.HOURS)) {
+
+            return toDateTime(date).minusHours(num).toDate();
+
+        }
+
+        throw new ServiceException("can not support timeUnit");
+
+    }
+    
+     /**
+     * 获取距离${date}之前${num}小时的时间
+     * @param date
+     * @param num
+     * @return
+     */
+    public static Date subWithHours(Date date, Integer num) {
+
+        return sub(date, num, TimeUnit.HOURS);
+
+    }
 
     /**
      * 把Date转换成DateTime
