@@ -104,5 +104,59 @@ public final class ReflectUtils {
     private ReflectUtils() {
         throw new RuntimeException("can not be constructor");
     }
+    
+     /**
+//     * 从configurations填充GlobalAccountConfigurationDto中的属性值
+//     *
+//     * @param configurations   填充属性源
+//     * @param configurationDto 填充目标对象
+//     */
+//    public void populateGlobalAccountConfigurationDto(List<GlobalAccountConfiguration> configurations, GlobalAccountConfigurationDto configurationDto) {
+//
+//        if (CollectionUtils.isEmpty(configurations)) {
+//            return;
+//        }
+//
+//        Map<String, GlobalAccountConfiguration> companyConfigurationMap = configurations.stream()
+//                .collect(Collectors.toMap(GlobalAccountConfiguration::getConfigurableKey, configuration -> configuration));
+//
+//        try {
+//
+//            BeanInfo beanInfo = Introspector.getBeanInfo(GlobalAccountConfigurationDto.class);
+//
+//            for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
+//
+//                if (propertyDescriptor.getPropertyType().equals(Class.class)) {
+//                    continue;
+//                }
+//                // 获取属性值
+//                String propertyName = propertyDescriptor.getName();
+//
+//                GlobalAccountConfiguration companyGlobalAccountConfiguration = companyConfigurationMap.get(propertyName);
+//
+//                if (null != companyGlobalAccountConfiguration) {
+//
+//                    Method writeMethod = propertyDescriptor.getWriteMethod();
+//
+//                    if (!Modifier.isPublic(writeMethod.getDeclaringClass().getModifiers())) {
+//                        writeMethod.setAccessible(true);
+//                    }
+//
+//                    // 赋值
+//                    writeMethod.invoke(configurationDto, companyGlobalAccountConfiguration.getConfigurableValue());
+//                }
+//
+//            }
+//
+//        } catch (IntrospectionException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+//
+//            String exceptionMsg = "反射赋值异常，" + e.getMessage();
+//
+//            log.error("populateGlobalAccountConfigurationDto occur exception,configurations:{},exceptionMsg:{}", configurations, e.getMessage(), e);
+//
+//            throw new ServiceException(exceptionMsg);
+//        }
+//
+//    }
 
 }
