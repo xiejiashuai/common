@@ -5,9 +5,9 @@ import org.joda.time.*;
 import java.util.Date;
 
 /**
- * @Author xiejs
- * @Description 提供方便的日期操作API
- * @Date Created in 2018/9/3 18:09
+ * @author jiashuai.xie
+ * @description 提供方便的日期操作API
+ * @date Created in 2018/9/3 18:09
  */
 public final class DateUtils {
     
