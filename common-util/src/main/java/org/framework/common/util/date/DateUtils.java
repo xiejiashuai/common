@@ -149,6 +149,162 @@ public final class DateUtils {
     public static Date getEndDate(Date date) {
         return toDateTime(date).millisOfDay().withMaximumValue().toDate();
     }
+    
+    /**
+     * 获取当前月的第一天
+     */
+    public static Date getFirstDayOfMonth() {
+        // 获取当前日期
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, 0);
+        // 设置为1号,当前日期既为本月第一天
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        return cal.getTime();
+    }
+
+    /**
+     * 获取当前时间的上一个月份第一天
+     */
+    public static Date getFirstDayOfLastMonth() {
+        // 获取当前日期
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, -1);
+        // 设置为1号,当前日期既为本月第一天
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        return cal.getTime();
+    }
+
+    /**
+     * 获取指定时间的所在月份的第一天
+     */
+    public static Date getFirstDayOfMonth(Date date) {
+        // 获取当前日期
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.MONTH, 0);
+        // 设置为1号,当前日期既为本月第一天
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
+    }
+
+    /**
+     * 获取指定时间的所在月份的第一天，并且格式化为指定格式的字符串
+     *
+     * @param date    时间
+     * @param pattern 指定的格式
+     * @return 格式化后的时间字符串
+     */
+    public static String getFirstDayOfMonth(Date date, String pattern) {
+
+        Date firstDayOfMonth = getFirstDayOfMonth(date);
+
+        return new SimpleDateFormat(pattern).format(firstDayOfMonth);
+    }
+
+    /**
+     * 获取指定时间的所在月份的最后一天
+     */
+    public static Date getLastDayOfMonth(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 59);
+        cal.set(Calendar.SECOND, 59);
+        cal.set(Calendar.MILLISECOND, 999);
+        return cal.getTime();
+    }
+
+    /**
+     * 获取指定时间的昨天
+     */
+    public static Date getYesterDay(Date date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DAY_OF_MONTH, -1);
+        return c.getTime();
+    }
+
+
+    /**
+     * 获取指定时间的的前几天
+     */
+    public static Date getGivenDay(Date date, Integer num) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DAY_OF_MONTH, -num);
+        return c.getTime();
+    }
+
+    /**
+     * 获取指定时间的起始时间00:00:00.000
+     */
+    public static Date getDayBegin(final Date date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        return c.getTime();
+    }
+
+    /**
+     * 获取指定时间的结束时间 23:59:59.999
+     */
+    public static Date getDayEnd(final Date date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.set(Calendar.HOUR_OF_DAY, 23);
+        c.set(Calendar.MINUTE, 59);
+        c.set(Calendar.SECOND, 59);
+        c.set(Calendar.MILLISECOND, 999);
+        return c.getTime();
+    }
+
+    public static Date plus(Date target, Integer number) {
+        ZoneId zoneId = ZoneId.systemDefault();
+        return Date.from(LocalDateTime.ofInstant(target.toInstant(), zoneId).plusDays(number).atZone(zoneId).toInstant());
+    }
+
+    /**
+     * 根据pattern解析文本为日期
+     *
+     * @param text
+     * @param pattern
+     * @return
+     */
+    public static Date parse(String text, String pattern) {
+
+        try {
+
+            return new SimpleDateFormat(pattern).parse(text);
+
+        } catch (ParseException e) {
+            throw new ServiceException(e.getMessage());
+        }
+
+    }
+
+    public static Date getDayTime(final Date date, Integer hour, Integer minute) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.set(Calendar.HOUR_OF_DAY, hour);
+        c.set(Calendar.MINUTE, minute);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        return c.getTime();
+    }
 
 
 }
