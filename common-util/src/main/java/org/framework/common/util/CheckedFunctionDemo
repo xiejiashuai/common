@@ -1,0 +1,54 @@
+package com.envision.dubbo.provider.lambda;
+
+import java.util.stream.Stream;
+
+import static com.envision.dubbo.provider.lambda.CheckedFunction.*;
+
+/**
+ * {@link CheckedFunction}测试类
+ *
+ * @author jiashuai.xie
+ * @since 2019/5/16 9:54 x.x.x.RELEASE
+ */
+public class CheckedFunctionDemo {
+
+    public static void main(String[] args) {
+
+//        testTransform();
+
+//        testTransformEither();
+
+//        testTransformEitherWithValue();
+    }
+
+    public static void testTransformEitherWithValue() {
+        Stream.of(1, 2, 3)
+                .map(transformEitherWithValue(CheckedFunctionDemo::throwException))
+                .filter(Either::isLeft)
+                .forEach(System.err::println);
+    }
+
+    public static void testTransformEither() {
+        Stream.of(1, 2, 3)
+                .map(transformEither(CheckedFunctionDemo::throwException))
+                .filter(Either::isLeft)
+                .forEach(System.err::println);
+    }
+
+    /**
+     * 测试 在lambda表达式中 出现异常
+     */
+    public static void testTransform() {
+        Stream.of(1, 2, 3)
+                .map(transform(CheckedFunctionDemo::throwException))
+                .forEach(System.err::println);
+    }
+
+
+    public static String throwException(Integer t) throws Exception {
+        //do nothing
+        throw new Exception("测试left异常");
+    }
+
+
+}
