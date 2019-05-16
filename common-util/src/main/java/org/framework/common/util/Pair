@@ -1,0 +1,31 @@
+package com.envision.dubbo.provider.lambda;
+
+/**
+ * 一对键值
+ *
+ * @author jiashuai.xie
+ * @since 1.0.0.RELEASE
+ */
+public class Pair<K,V> {
+
+    public final K k;
+
+    public final V v;
+
+    private Pair(K fst, V snd) {
+        this.k = fst;
+        this.v = snd;
+    }
+
+    public static <K,V> Pair<K,V> of(K k, V v) {
+        return new Pair<>(k,v);
+    }
+
+    @Override
+    public String toString() {
+        return "Pair{" +
+                "k=" + k +
+                ", v=" + v +
+                '}';
+    }
+}
